@@ -1,0 +1,11 @@
+.isSunday {
+  background-color: red;
+}
+
+.isSaturday {
+  background-color: red;
+}
+
+.notThisMonth {
+  color: #ccc;
+}
