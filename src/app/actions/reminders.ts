@@ -1,4 +1,3 @@
-import { createAction } from 'redux-actions';
 import { ReminderModel } from 'app/models';
 
 export type ReminderAction = {

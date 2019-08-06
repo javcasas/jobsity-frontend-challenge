@@ -4,12 +4,13 @@ import { Dispatch } from 'redux';
 //import { RouteComponentProps } from 'react-router';
 //import { TodoActions } from 'app/actions';
 import { RootState } from 'app/reducers';
-import { ReminderModel, Color } from 'app/models/ReminderModel';
+import { ReminderModel } from 'app/models/ReminderModel';
 import { ReminderAction } from 'app/actions/reminders';
 //import { omit } from 'app/utils';
 //import { Header, TodoList, Footer } from 'app/components';
 import Week from 'app/components/Calendar/Week';
 import ReminderInCalendar from 'app/components/ReminderInCalendar';
+import ReminderForm from 'app/components/ReminderForm';
 import { utc } from 'moment'
 
 //const FILTER_VALUES = (Object.keys(TodoModel.Filter) as (keyof typeof TodoModel.Filter)[]).map(
@@ -51,28 +52,6 @@ type State = {
 }
 
 
-interface CreateReminderFormProps {
-  onCreate: (r: ReminderModel) => any;
-}
-class CreateReminderForm extends React.Component<CreateReminderFormProps, ReminderModel> {
-  constructor(props: CreateReminderFormProps) {
-    super(props);
-    this.state = {
-      id: 0,
-      text: "",
-      city: "",
-      color: Color.Red,
-      date: utc()
-    }
-  }
-  render () {
-    return (<form>
-      <input type="text" onChange={evt => this.setState({text: evt.target.value})} value={this.state.text} />
-      <button type="button" onClick={() => this.props.onCreate(this.state)}>Create reminder</button>
-    </form>)
-  }
-}
-
 @connect(
   function mapStateToProps(state: RootState): StateProps {
     return {
@@ -103,12 +82,21 @@ export class Calendar extends React.Component<Props, State> {
 //    this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
-  createNewReminder = () => {
-    console.log("DSAFASDF")
-    this.setState({type: "CREATE_NEW_REMINDER" })
+  startNewReminder = () => {
+    this.setState({type: "CREATE_NEW_REMINDER" });
+  }
+
+  saveNewReminder = (r: ReminderModel) => {
+    this.props.createReminder(r);
+    this.setState({type: "VIEW_MONTH" });
+  }
+
+  cancelEditingReminder = () => {
+    this.setState({type: "VIEW_MONTH" });
   }
 
   render() {
+    const stateType = this.state.type;
     const firstDayOfFirstWeek = utc().date(1).day(0).hour(0).minute(0).seconds(0)
     const today = utc()
     const weeks = [0, 7, 14, 21, 28].map(start => utc(firstDayOfFirstWeek).add(start, "days"));
@@ -126,8 +114,15 @@ export class Calendar extends React.Component<Props, State> {
 
     return (
       <>
-        {this.state.type === "CREATE_NEW_REMINDER" && <CreateReminderForm onCreate={this.props.createReminder} /> }
-        <button onClick={this.createNewReminder}>Create new reminder</button>
+        {stateType === "CREATE_NEW_REMINDER"
+          && <ReminderForm
+                title="Create new reminder"
+                saveText="Save new reminder"
+                onCreate={this.saveNewReminder}
+                onCancel={this.cancelEditingReminder}
+          /> }
+        {stateType === "VIEW_MONTH" &&
+          <button onClick={this.startNewReminder}>Create new reminder</button>}
       <table>
         <thead>
           <tr>
