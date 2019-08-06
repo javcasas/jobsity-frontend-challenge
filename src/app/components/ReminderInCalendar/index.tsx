@@ -10,6 +10,7 @@ interface Props {
   color: Color;
   city: string;
   weather?: React.Component;
+  onClick?: () => void;
 }
 
 function colorToClass(color: Color) : string {
@@ -31,9 +32,9 @@ function colorToClass(color: Color) : string {
   }
 }
 
-export const ReminderInCalendar : React.SFC<Props> = ({date, text, color, city, weather}) =>
-  <div className={colorToClass(color)}>
+export const ReminderInCalendar : React.SFC<Props> = ({date, text, color, city, weather, onClick}) =>
+  <button className={colorToClass(color)} onClick={onClick}>
     { date.format("HH:MM") } - { text } - { city } {weather && <> - {weather}</> }
-  </div>
+  </button>
 
 export default ReminderInCalendar

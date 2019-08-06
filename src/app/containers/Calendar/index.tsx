@@ -86,17 +86,45 @@ export class Calendar extends React.Component<Props, State> {
     this.setState({type: "CREATE_NEW_REMINDER" });
   }
 
+  editReminder = (r: ReminderModel) => {
+    this.setState({type: "EDIT_REMINDER", reminder: r });
+  }
+
   saveNewReminder = (r: ReminderModel) => {
     this.props.createReminder(r);
+    this.setState({type: "VIEW_MONTH" });
+  }
+
+  updateReminder = (id: number) => (r: ReminderModel) => {
+    this.props.updateReminder(id, {id, ...r});
     this.setState({type: "VIEW_MONTH" });
   }
 
   cancelEditingReminder = () => {
     this.setState({type: "VIEW_MONTH" });
   }
+  
+  reminderEditor = () => {
+    if(this.state.type === "CREATE_NEW_REMINDER") {
+      return <ReminderForm
+                title="Create new reminder"
+                saveText="Save new reminder"
+                onCreate={this.saveNewReminder}
+                onCancel={this.cancelEditingReminder}
+              />
+    } else if (this.state.type === "EDIT_REMINDER") {
+      return <ReminderForm
+                title="Edit reminder"
+                saveText="Update reminder"
+                onCreate={this.updateReminder(this.state.reminder.id)}
+                onCancel={this.cancelEditingReminder}
+                initialReminder={this.state.reminder}
+                />
+    } else {
+      return <button onClick={this.startNewReminder}>Create new reminder</button>}
+  }
 
   render() {
-    const stateType = this.state.type;
     const firstDayOfFirstWeek = utc().date(1).day(0).hour(0).minute(0).seconds(0)
     const today = utc()
     const weeks = [0, 7, 14, 21, 28].map(start => utc(firstDayOfFirstWeek).add(start, "days"));
@@ -108,21 +136,14 @@ export class Calendar extends React.Component<Props, State> {
                   text={r.text}
                   color={r.color}
                   city={r.city}
+                  onClick={() => this.editReminder(r)}
                   />
       }
     });
 
     return (
       <>
-        {stateType === "CREATE_NEW_REMINDER"
-          && <ReminderForm
-                title="Create new reminder"
-                saveText="Save new reminder"
-                onCreate={this.saveNewReminder}
-                onCancel={this.cancelEditingReminder}
-          /> }
-        {stateType === "VIEW_MONTH" &&
-          <button onClick={this.startNewReminder}>Create new reminder</button>}
+        { this.reminderEditor() }
       <table>
         <thead>
           <tr>
