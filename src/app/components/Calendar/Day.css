@@ -1,13 +1,13 @@
-.isSunday {
-  background-color: red;
-}
-
-.isSaturday {
-  background-color: red;
+.isSunday, .isSaturday {
+  background-color: #fcc;
 }
 
 .notThisMonth {
   color: #ccc;
+}
+
+.notThisMonth.isSaturday, .notThisMonth.isSunday {
+  color: #999;
 }
 
 .isToday {

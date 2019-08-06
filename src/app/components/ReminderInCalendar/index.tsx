@@ -4,14 +4,6 @@ import { Moment } from 'moment';
 import * as styles from './styles.css';
 import { Color } from 'app/models/ReminderModel';
 
-interface Props {
-  date: Moment;
-  text: string;
-  color: Color;
-  city: string;
-  weather?: React.Component;
-  onClick?: () => void;
-}
 
 function colorToClass(color: Color) : string {
   switch(color) {
@@ -32,9 +24,41 @@ function colorToClass(color: Color) : string {
   }
 }
 
-export const ReminderInCalendar : React.SFC<Props> = ({date, text, color, city, weather, onClick}) =>
-  <button className={classnames(colorToClass(color), styles.reminder)} onClick={onClick}>
-    { date.format("HH:MM") } - { text } - { city } {weather && <> - {weather}</> }
-  </button>
+interface Props {
+  date: Moment;
+  text: string;
+  color: Color;
+  city: string;
+  onClick?: () => void;
+  fetchForecast?: (city: string, date: Moment) => Promise<string>
+}
+
+interface State {
+  weather?: React.ReactNode;
+}
+
+export class ReminderInCalendar extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {}
+  }
+  componentDidMount () {
+    if(this.props.fetchForecast) {
+      this.props.fetchForecast(this.props.city, this.props.date)
+        .then(forecast => this.setState({weather: forecast}))
+        .catch(() => this.setState({weather: null}))
+    }
+  }
+
+  render() {
+    const {date, text, color, city, onClick} = this.props;
+    const {weather} = this.state;
+    return (
+      <button className={classnames(colorToClass(color), styles.reminder)} onClick={onClick}>
+        { date.format("HH:MM") } - { text } - { city } {weather && <> - {weather}</> }
+      </button>
+    )
+  }
+}
 
 export default ReminderInCalendar

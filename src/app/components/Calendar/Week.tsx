@@ -2,7 +2,7 @@ import * as React from 'react';
 import Day from './Day';
 import { Moment, utc } from 'moment';
 
-interface Element {
+export interface Element {
   date: Moment;
   element: React.ReactNode;
 }
