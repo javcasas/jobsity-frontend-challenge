@@ -13,3 +13,7 @@
 .yellow {
   background-color: yellow;
 }
+.reminder {
+  display: block;
+  width: 100%;
+}

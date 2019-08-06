@@ -9,3 +9,7 @@
 .notThisMonth {
   color: #ccc;
 }
+
+.isToday {
+  background-color: #bfb
+}

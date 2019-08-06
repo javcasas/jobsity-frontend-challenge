@@ -13,30 +13,12 @@ import ReminderInCalendar from 'app/components/ReminderInCalendar';
 import ReminderForm from 'app/components/ReminderForm';
 import { utc } from 'moment'
 
-//const FILTER_VALUES = (Object.keys(TodoModel.Filter) as (keyof typeof TodoModel.Filter)[]).map(
-//  (key) => TodoModel.Filter[key]
-//);
-
-//const FILTER_FUNCTIONS: Record<TodoModel.Filter, (todo: TodoModel) => boolean> = {
-//  [TodoModel.Filter.SHOW_ALL]: () => true,
-//  [TodoModel.Filter.SHOW_ACTIVE]: (todo) => !todo.completed,
-//  [TodoModel.Filter.SHOW_COMPLETED]: (todo) => todo.completed
-//};
-
-//export namespace App {
-//  export interface Props extends RouteComponentProps<void> {
-//    todos: RootState.TodoState;
-//    actions: TodoActions;
-//    filter: TodoModel.Filter;
-//  }
-//}
-
 interface StateProps {
   reminders: ReminderModel[]
 }
 interface DispatchProps {
   createReminder: (r: ReminderModel) => any;
-  updateReminder: (id: number, r: ReminderModel) => any;
+  updateReminder: (r: ReminderModel) => any;
 }
 
 type Props = StateProps & DispatchProps
@@ -60,13 +42,12 @@ type State = {
   },
   function mapDispatchToProps(dispatch: Dispatch<ReminderAction>): DispatchProps {
     return {
-      createReminder: (r) => dispatch({
+      createReminder: (r: ReminderModel) => dispatch({
         type: "ADD_REMINDER",
         reminder: r
       }),
-      updateReminder: (id, r) => dispatch({
+      updateReminder: (r: ReminderModel) => dispatch({
         type: "UPDATE_REMINDER",
-        id,
         updated: r
       })
     }
@@ -95,8 +76,8 @@ export class Calendar extends React.Component<Props, State> {
     this.setState({type: "VIEW_MONTH" });
   }
 
-  updateReminder = (id: number) => (r: ReminderModel) => {
-    this.props.updateReminder(id, {id, ...r});
+  updateReminder = (r: ReminderModel) => {
+    this.props.updateReminder(r);
     this.setState({type: "VIEW_MONTH" });
   }
 
@@ -116,7 +97,7 @@ export class Calendar extends React.Component<Props, State> {
       return <ReminderForm
                 title="Edit reminder"
                 saveText="Update reminder"
-                onCreate={this.updateReminder(this.state.reminder.id)}
+                onCreate={this.updateReminder}
                 onCancel={this.cancelEditingReminder}
                 initialReminder={this.state.reminder}
                 />

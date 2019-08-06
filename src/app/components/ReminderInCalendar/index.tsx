@@ -1,5 +1,5 @@
 import * as React from 'react';
-//import classnames from 'classnames';
+import classnames from 'classnames';
 import { Moment } from 'moment';
 import * as styles from './styles.css';
 import { Color } from 'app/models/ReminderModel';
@@ -33,7 +33,7 @@ function colorToClass(color: Color) : string {
 }
 
 export const ReminderInCalendar : React.SFC<Props> = ({date, text, color, city, weather, onClick}) =>
-  <button className={colorToClass(color)} onClick={onClick}>
+  <button className={classnames(colorToClass(color), styles.reminder)} onClick={onClick}>
     { date.format("HH:MM") } - { text } - { city } {weather && <> - {weather}</> }
   </button>
 

@@ -8,13 +8,14 @@ const initialState: ReminderState = {
 
 export function reminderReducer(state=initialState, action:ReminderAction)  : ReminderState {
   if (action.type === "ADD_REMINDER") {
+    const newReminder = {...action.reminder, id: state.nextId};
     return {
-      reminders: [...state.reminders, action.reminder],
+      reminders: [...state.reminders, newReminder],
       nextId: state.nextId + 1
     }
   } else if (action.type === "UPDATE_REMINDER") {
     return {
-      reminders: state.reminders.map(r => r.id === action.id ? action.updated : r),
+      reminders: state.reminders.map(r => r.id === action.updated.id ? action.updated : r),
       nextId: state.nextId
     }
   } else {

@@ -7,14 +7,16 @@ interface Props {
   notThisMonth?: boolean;
   date: Moment;
   children?: React.ReactNode;
+  isToday?: boolean;
 }
 
-export const Day : React.SFC<Props> = ({notThisMonth, date, children}) =>
+export const Day : React.SFC<Props> = ({notThisMonth, date, children, isToday}) =>
   <td className={
         classnames({
           [styles.notThisMonth]: notThisMonth,
           [styles.isSunday]: date.day() === 0,
           [styles.isSaturday]: date.day() === 6,
+          [styles.isToday]: isToday,
         })}>
     {date.date()}
     {children}     

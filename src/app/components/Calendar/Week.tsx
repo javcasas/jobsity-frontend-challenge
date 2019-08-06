@@ -1,5 +1,4 @@
 import * as React from 'react';
-//import { Header, TodoList, Footer } from 'app/components';
 import Day from './Day';
 import { Moment, utc } from 'moment';
 
@@ -23,7 +22,9 @@ export const Week : React.SFC<Props> = ({firstDay, today, elements}) => {
       <Day
         key={d.format()}
         date={d}
-        notThisMonth={d.format("YYYY MMMM") !== thisMonth}>
+        notThisMonth={d.format("YYYY MMMM") !== thisMonth}
+        isToday={d.isBefore(today) && utc(d).add(1, 'days').isAfter(today)}
+        >
         {elements.filter(e => d.isBefore(e.date) && utc(d).add(1, 'days').isAfter(e.date)).map(e => e.element)}
       </Day>)
     }
