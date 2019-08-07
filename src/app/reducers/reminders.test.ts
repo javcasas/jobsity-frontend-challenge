@@ -42,4 +42,21 @@ describe("reminderReducer", () => {
       ]
     });
   })
+  it("action: DELETE_REMINDER", () => {
+    const prevState : ReminderState = {
+      nextId: 2,
+      reminders: [{...reminder, id: 1}]
+    }
+    expect(
+      reminderReducer(
+        prevState, 
+        { 
+          type: "DELETE_REMINDER",
+          deleted: {...reminder, id: 1}
+        })
+    ).toStrictEqual({
+      nextId: 2,
+      reminders: []
+    });
+  })
 })

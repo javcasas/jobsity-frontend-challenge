@@ -10,4 +10,9 @@ export interface UpdateReminder {
   updated: ReminderModel;
 }
 
-export type ReminderAction = AddReminder | UpdateReminder;
+export interface DeleteReminder {
+  type: "DELETE_REMINDER";
+  deleted: ReminderModel;
+}
+
+export type ReminderAction = AddReminder | UpdateReminder | DeleteReminder;

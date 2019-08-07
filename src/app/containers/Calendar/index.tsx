@@ -44,7 +44,7 @@ export class Calendar extends React.Component<Props, State> {
     this.state = {
       state: { type: "VIEW_MONTH" },
       apiKey: "",
-      currentMonth: moment().date(1),
+      currentMonth: moment().date(1).hour(1).minute(1).second(1).milliseconds(1),
     }
   }
 
