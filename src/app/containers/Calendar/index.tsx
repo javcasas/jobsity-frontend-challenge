@@ -17,6 +17,7 @@ interface StateProps {
 interface DispatchProps {
   createReminder: (r: ReminderModel) => any;
   updateReminder: (r: ReminderModel) => any;
+  deleteReminder: (r: ReminderModel) => any;
 }
 
 export type Props = StateProps & DispatchProps
@@ -70,6 +71,11 @@ export class Calendar extends React.Component<Props, State> {
     this.setState({state: {type: "VIEW_MONTH" }});
   }
 
+  deleteReminder = (r: ReminderModel) => {
+    this.props.deleteReminder(r);
+    this.setState({state: {type: "VIEW_MONTH" }});
+  }
+
   setAPIKey = (apiKey: string) => this.setState({apiKey})
 
   setNextMonth = () => this.setState({
@@ -89,12 +95,14 @@ export class Calendar extends React.Component<Props, State> {
                 initialDate={this.props.date}
               />
     } else if (this.state.state.type === "EDIT_REMINDER") {
+      const reminder = this.state.state.reminder;
       return <ReminderForm
                 title="Edit reminder"
                 saveText="Update reminder"
                 onCreate={this.updateReminder}
                 onCancel={this.cancelEditingReminder}
-                initialReminder={this.state.state.reminder}
+                onDelete={() => this.deleteReminder(reminder)}
+                initialReminder={reminder}
                 />
     } else {
       return null
@@ -156,7 +164,11 @@ export const ConnectedCalendar = connect(
       updateReminder: (r: ReminderModel) => dispatch({
         type: "UPDATE_REMINDER",
         updated: r
-      })
+      }),
+      deleteReminder: (r: ReminderModel) => dispatch({
+        type: "DELETE_REMINDER",
+        deleted: r
+      }),
     }
   }
 )(Calendar);

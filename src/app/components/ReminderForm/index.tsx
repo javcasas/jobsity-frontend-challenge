@@ -7,6 +7,7 @@ import { Moment } from 'moment';
 interface Props {
   onCreate: (r: ReminderModel) => any;
   onCancel: () => any;
+  onDelete?: () => any;
   initialReminder?: ReminderModel;
   saveText: string;
   title: string;
@@ -53,7 +54,7 @@ class ReminderForm extends React.Component<Props, State> {
   }
 
   render () {
-    const { onCreate, onCancel, saveText, title } = this.props;
+    const { onCreate, onCancel, onDelete, saveText, title } = this.props;
     const { text, city, date } = this.state;
 
     const textError = (function () {
@@ -125,6 +126,10 @@ class ReminderForm extends React.Component<Props, State> {
             onClick={() => onCreate(this.state)}
             disabled={isInvalid}
             >{ saveText }</button>
+          { onDelete && <button
+            type="button"
+            onClick={onDelete}
+            >Delete reminder</button>}
           <button
             type="button"
             onClick={onCancel}
