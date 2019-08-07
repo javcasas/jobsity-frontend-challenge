@@ -638,22 +638,26 @@ exports[`Calendar container Create new reminder - full workflow 1`] = `
       </tbody>
     </table>
   </Month>
-  <button
-    className="create-reminder"
-    onClick={[Function]}
-  >
-    Create new reminder
-  </button>
-  <label
-    htmlFor="api_key"
-  >
-    API key
-  </label>
-  <input
-    id="api_key"
-    onChange={[Function]}
-    type="text"
-  />
+  <div>
+    <button
+      className="create-reminder"
+      onClick={[Function]}
+    >
+      Create new reminder
+    </button>
+  </div>
+  <div>
+    <label
+      htmlFor="api_key"
+    >
+      API key
+    </label>
+    <input
+      id="api_key"
+      onChange={[Function]}
+      type="text"
+    />
+  </div>
 </Calendar>
 `;
 
@@ -1285,22 +1289,26 @@ exports[`Calendar container Create new reminder - full workflow 2`] = `
       </tbody>
     </table>
   </Month>
-  <button
-    className="create-reminder"
-    onClick={[Function]}
-  >
-    Create new reminder
-  </button>
-  <label
-    htmlFor="api_key"
-  >
-    API key
-  </label>
-  <input
-    id="api_key"
-    onChange={[Function]}
-    type="text"
-  />
+  <div>
+    <button
+      className="create-reminder"
+      onClick={[Function]}
+    >
+      Create new reminder
+    </button>
+  </div>
+  <div>
+    <label
+      htmlFor="api_key"
+    >
+      API key
+    </label>
+    <input
+      id="api_key"
+      onChange={[Function]}
+      type="text"
+    />
+  </div>
 </Calendar>
 `;
 
@@ -1317,22 +1325,26 @@ exports[`Calendar container Create new reminder button opens the form 1`] = `
     elements={Array []}
     today={"2019-04-14T12:11:45.000Z"}
   />
-  <button
-    className="create-reminder"
-    onClick={[Function]}
-  >
-    Create new reminder
-  </button>
-  <label
-    htmlFor="api_key"
-  >
-    API key
-  </label>
-  <input
-    id="api_key"
-    onChange={[Function]}
-    type="text"
-  />
+  <div>
+    <button
+      className="create-reminder"
+      onClick={[Function]}
+    >
+      Create new reminder
+    </button>
+  </div>
+  <div>
+    <label
+      htmlFor="api_key"
+    >
+      API key
+    </label>
+    <input
+      id="api_key"
+      onChange={[Function]}
+      type="text"
+    />
+  </div>
 </Fragment>
 `;
 
@@ -1349,22 +1361,26 @@ exports[`Calendar container Create new reminder button opens the form 2`] = `
     elements={Array []}
     today={"2019-04-14T12:11:45.000Z"}
   />
-  <button
-    className="create-reminder"
-    onClick={[Function]}
-  >
-    Create new reminder
-  </button>
-  <label
-    htmlFor="api_key"
-  >
-    API key
-  </label>
-  <input
-    id="api_key"
-    onChange={[Function]}
-    type="text"
-  />
+  <div>
+    <button
+      className="create-reminder"
+      onClick={[Function]}
+    >
+      Create new reminder
+    </button>
+  </div>
+  <div>
+    <label
+      htmlFor="api_key"
+    >
+      API key
+    </label>
+    <input
+      id="api_key"
+      onChange={[Function]}
+      type="text"
+    />
+  </div>
 </Fragment>
 `;
 
@@ -1374,21 +1390,25 @@ exports[`Calendar container render calendar 1`] = `
     elements={Array []}
     today={"2019-04-14T12:11:45.000Z"}
   />
-  <button
-    className="create-reminder"
-    onClick={[Function]}
-  >
-    Create new reminder
-  </button>
-  <label
-    htmlFor="api_key"
-  >
-    API key
-  </label>
-  <input
-    id="api_key"
-    onChange={[Function]}
-    type="text"
-  />
+  <div>
+    <button
+      className="create-reminder"
+      onClick={[Function]}
+    >
+      Create new reminder
+    </button>
+  </div>
+  <div>
+    <label
+      htmlFor="api_key"
+    >
+      API key
+    </label>
+    <input
+      id="api_key"
+      onChange={[Function]}
+      type="text"
+    />
+  </div>
 </Fragment>
 `;

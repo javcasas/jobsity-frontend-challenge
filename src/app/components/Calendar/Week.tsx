@@ -18,16 +18,19 @@ export const Week : React.SFC<Props> = ({firstDay, today, elements}) => {
   const thisMonth = today.format("YYYY MMMM")
 
   return (<tr>
-    {days.map(d => 
-      <Day
+    {days.map(d => {
+      const dayElements = elements
+          .filter(e => d.isBefore(e.date) && d.clone().add(1, 'days').isAfter(e.date))
+          .sort((a, b) => a.date.isBefore(b.date) ? -1 : 1);
+      return <Day
         key={d.format()}
         date={d}
         notThisMonth={d.format("YYYY MMMM") !== thisMonth}
         isToday={d.isBefore(today) && d.clone().add(1, 'days').isAfter(today)}
         >
-        {elements.filter(e => d.isBefore(e.date) && d.clone().add(1, 'days').isAfter(e.date)).map(e => e.element)}
-      </Day>)
-    }
+        {dayElements.map(e => e.element)}
+      </Day>
+    })}
   </tr>)
 }
 

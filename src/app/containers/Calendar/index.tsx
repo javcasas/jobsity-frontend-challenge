@@ -114,11 +114,15 @@ export class Calendar extends React.Component<Props, State> {
         <Month
           today={today}
           elements={reminders} />
-        <button className="create-reminder" onClick={this.startNewReminder}>
-          Create new reminder
-        </button>
-        <label htmlFor="api_key">API key</label>
-        <input type="text" id="api_key" onChange={e => this.setAPIKey(e.target.value)} />
+        <div>
+          <button className="create-reminder" onClick={this.startNewReminder}>
+            Create new reminder
+          </button>
+        </div>
+        <div>
+          <label htmlFor="api_key">API key</label>
+          <input type="text" id="api_key" onChange={e => this.setAPIKey(e.target.value)} />
+        </div>
       </>
     );
   }
