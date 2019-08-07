@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ReminderModel, Color } from 'app/models/ReminderModel';
-import { utc } from 'moment'
-import * as styles from './index.css'
+import { utc } from 'moment';
+import * as styles from './index.css';
+import { Moment } from 'moment';
 
 interface Props {
   onCreate: (r: ReminderModel) => any;
@@ -9,6 +10,7 @@ interface Props {
   initialReminder?: ReminderModel;
   saveText: string;
   title: string;
+  initialDate?: Moment;
 }
 
 type State = ReminderModel
@@ -23,13 +25,13 @@ class ReminderForm extends React.Component<Props, State> {
       text: "",
       city: "",
       color: Color.Red,
-      date: utc()
+      date: props.initialDate || utc()
     }
   }
 
   colorRadio = (id: string, text: string, color: Color) => 
       <label htmlFor={id}>
-        <input type="radio" id={id} onClick={() => this.setState({color})} checked={this.state.color === color}/>
+        <input type="radio" id={id} onChange={() => this.setState({color})} checked={this.state.color === color}/>
         { text }
       </label>
 
@@ -84,7 +86,7 @@ class ReminderForm extends React.Component<Props, State> {
           type="text"
           id="description"
           placeholder="Up to 30 chars of description"
-          onChange={evt => this.setState({text: evt.target.value})}
+          onChange={evt => { console.error("ADFDF", evt.target.value, 4); this.setState({text: evt.target.value})}}
           value={text} />
         { textError }
 

@@ -8,17 +8,18 @@ import { Month } from 'app/components/Calendar/Month';
 import ReminderInCalendar from 'app/components/ReminderInCalendar';
 import { fetchForecast } from 'app/components/ReminderInCalendar/OpenWeatherMapApi';
 import ReminderForm from 'app/components/ReminderForm';
-import { utc } from 'moment'
+import { utc, Moment } from 'moment'
 
 interface StateProps {
-  reminders: ReminderModel[]
+  reminders: ReminderModel[];
+  date?: Moment;
 }
 interface DispatchProps {
   createReminder: (r: ReminderModel) => any;
   updateReminder: (r: ReminderModel) => any;
 }
 
-type Props = StateProps & DispatchProps
+export type Props = StateProps & DispatchProps
 
 interface ViewMonth {
   type: "VIEW_MONTH"
@@ -36,29 +37,7 @@ interface State {
   apiKey: string;
 }
 
-
-@connect(
-  function mapStateToProps(state: RootState): StateProps {
-    return {
-      reminders: state.reminders.reminders
-    }
-  },
-  function mapDispatchToProps(dispatch: Dispatch<ReminderAction>): DispatchProps {
-    return {
-      createReminder: (r: ReminderModel) => dispatch({
-        type: "ADD_REMINDER",
-        reminder: r
-      }),
-      updateReminder: (r: ReminderModel) => dispatch({
-        type: "UPDATE_REMINDER",
-        updated: r
-      })
-    }
-  }
-)
-
 export class Calendar extends React.Component<Props, State> {
-
   constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
@@ -98,6 +77,7 @@ export class Calendar extends React.Component<Props, State> {
                 saveText="Save new reminder"
                 onCreate={this.saveNewReminder}
                 onCancel={this.cancelEditingReminder}
+                initialDate={this.props.date}
               />
     } else if (this.state.state.type === "EDIT_REMINDER") {
       return <ReminderForm
@@ -113,7 +93,7 @@ export class Calendar extends React.Component<Props, State> {
   }
 
   render() {
-    const today = utc()
+    const today = this.props.date || utc()
     const reminders = this.props.reminders.map(r => {
       return {
         date: r.date,
@@ -134,7 +114,7 @@ export class Calendar extends React.Component<Props, State> {
         <Month
           today={today}
           elements={reminders} />
-        <button onClick={this.startNewReminder}>
+        <button className="create-reminder" onClick={this.startNewReminder}>
           Create new reminder
         </button>
         <label htmlFor="api_key">API key</label>
@@ -143,3 +123,23 @@ export class Calendar extends React.Component<Props, State> {
     );
   }
 }
+
+export const ConnectedCalendar = connect(
+  function mapStateToProps(state: RootState): StateProps {
+    return {
+      reminders: state.reminders.reminders
+    }
+  },
+  function mapDispatchToProps(dispatch: Dispatch<ReminderAction>): DispatchProps {
+    return {
+      createReminder: (r: ReminderModel) => dispatch({
+        type: "ADD_REMINDER",
+        reminder: r
+      }),
+      updateReminder: (r: ReminderModel) => dispatch({
+        type: "UPDATE_REMINDER",
+        updated: r
+      })
+    }
+  }
+)(Calendar);
