@@ -1,15 +1,12 @@
 {
-  "name": "react-redux-typescript-boilerplate",
-  "version": "1.0.1",
+  "name": "jobsity-challenge",
+  "version": "1.0.0",
   "private": true,
-  "description": "A frontend boilerplate with React, Redux and Typescript",
-  "homepage": "https://rokoroku.github.io/react-redux-typescript-boilerplate",
+  "description": "Challenge calendar app for Jobsity",
   "keywords": [
     "react",
     "redux",
-    "typescript",
-    "boilerplate",
-    "todomvc"
+    "typescript"
   ],
   "main": "index.js",
   "scripts": {
