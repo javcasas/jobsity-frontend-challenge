@@ -55,7 +55,7 @@ export class ReminderInCalendar extends React.Component<Props, State> {
     const {weather} = this.state;
     return (
       <button className={classnames(colorToClass(color), styles.reminder)} onClick={onClick}>
-        { date.format("HH:MM") } - { text } - { city } {weather && <> - {weather}</> }
+        { date.format("HH:mm") } - { text } - { city } {weather && <> - {weather}</> }
       </button>
     )
   }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Week, { Element } from 'app/components/Calendar/Week';
-import { Moment, utc } from 'moment'
+import { Moment } from 'moment'
 import * as styles from './Month.css'
 
 interface Props {
@@ -13,8 +13,8 @@ export class Month extends React.Component<Props> {
   render() {
     const { today, elements } = this.props;
     const currentMonth = this.props.currentMonth || today;
-    const firstDayOfFirstWeek = utc(currentMonth).date(1).day(0).hour(0).minute(0).seconds(0)
-    const weeks = [0, 7, 14, 21, 28].map(start => utc(firstDayOfFirstWeek).add(start, "days"));
+    const firstDayOfFirstWeek = currentMonth.clone().date(1).day(0).hour(0).minute(0).seconds(0)
+    const weeks = [0, 7, 14, 21, 28].map(start => firstDayOfFirstWeek.clone().add(start, "days"));
 
     return (
       <>

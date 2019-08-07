@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReminderModel, Color } from 'app/models/ReminderModel';
-import { utc } from 'moment';
+import moment from 'moment';
 import * as styles from './index.css';
 import { Moment } from 'moment';
 
@@ -25,7 +25,7 @@ class ReminderForm extends React.Component<Props, State> {
       text: "",
       city: "",
       color: Color.Red,
-      date: props.initialDate || utc()
+      date: props.initialDate || moment()
     }
   }
 
@@ -36,8 +36,8 @@ class ReminderForm extends React.Component<Props, State> {
       </label>
 
   setDate = (d: string) => {
-    const parsed = utc(d);
-    const newDate = utc(this.state.date)
+    const parsed = moment(d);
+    const newDate = this.state.date.clone()
                       .year(parsed.year())
                       .month(parsed.month())
                       .date(parsed.date())
@@ -45,8 +45,8 @@ class ReminderForm extends React.Component<Props, State> {
   }
 
   setTime = (t: string) => {
-    const parsed = utc("2019-01-01T"+t);
-    const newDate = utc(this.state.date)
+    const parsed = moment("2019-01-01T"+t);
+    const newDate = this.state.date.clone()
                       .hours(parsed.hour())
                       .minutes(parsed.minutes())
     this.setState({date: newDate})

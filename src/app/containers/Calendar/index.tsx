@@ -8,7 +8,7 @@ import { Month } from 'app/components/Calendar/Month';
 import ReminderInCalendar from 'app/components/ReminderInCalendar';
 import { fetchForecast } from 'app/components/ReminderInCalendar/OpenWeatherMapApi';
 import ReminderForm from 'app/components/ReminderForm';
-import { utc, Moment } from 'moment'
+import moment, { Moment } from 'moment'
 
 interface StateProps {
   reminders: ReminderModel[];
@@ -93,7 +93,7 @@ export class Calendar extends React.Component<Props, State> {
   }
 
   render() {
-    const today = this.props.date || utc()
+    const today = this.props.date || moment()
     const reminders = this.props.reminders.map(r => {
       return {
         date: r.date,
