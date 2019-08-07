@@ -10,12 +10,13 @@ export interface Element {
 interface Props {
   firstDay: Moment;  // First day of the week
   today: Moment;
+  currentMonth: Moment;
   elements: Element[];
 }
 
-export const Week : React.SFC<Props> = ({firstDay, today, elements}) => {
+export const Week : React.SFC<Props> = ({firstDay, today, currentMonth, elements}) => {
   const days = [0, 1, 2, 3, 4, 5, 6].map(d => firstDay.clone().add(d, 'days'))
-  const thisMonth = today.format("YYYY MMMM")
+  const thisMonth = currentMonth.format("YYYY MMMM")
 
   return (<tr>
     {days.map(d => {

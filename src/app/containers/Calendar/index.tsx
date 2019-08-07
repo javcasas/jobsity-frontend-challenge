@@ -35,6 +35,7 @@ interface EditReminder {
 interface State {
   state: ViewMonth | CreateNewReminder | EditReminder;
   apiKey: string;
+  currentMonth: Moment;
 }
 
 export class Calendar extends React.Component<Props, State> {
@@ -43,6 +44,7 @@ export class Calendar extends React.Component<Props, State> {
     this.state = {
       state: { type: "VIEW_MONTH" },
       apiKey: "",
+      currentMonth: moment().date(1),
     }
   }
 
@@ -69,6 +71,13 @@ export class Calendar extends React.Component<Props, State> {
   }
 
   setAPIKey = (apiKey: string) => this.setState({apiKey})
+
+  setNextMonth = () => this.setState({
+    currentMonth: this.state.currentMonth.clone().add(1, "month")
+  })
+  setPrevMonth = () => this.setState({
+    currentMonth: this.state.currentMonth.clone().add(-1, "month")
+  })
   
   reminderEditor = () => {
     if(this.state.state.type === "CREATE_NEW_REMINDER") {
@@ -113,7 +122,11 @@ export class Calendar extends React.Component<Props, State> {
         { this.reminderEditor() }
         <Month
           today={today}
-          elements={reminders} />
+          elements={reminders}
+          currentMonth={this.state.currentMonth}
+          onNextMonth={this.setNextMonth}
+          onPrevMonth={this.setPrevMonth}
+          />
         <div>
           <button className="create-reminder" onClick={this.startNewReminder}>
             Create new reminder
