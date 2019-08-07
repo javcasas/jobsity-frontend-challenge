@@ -16,7 +16,7 @@ table.month thead th {
 }
 
 table.month tr {
-  height: 50px;
+  min-height: 50px;
 }
 
 table.month td {
